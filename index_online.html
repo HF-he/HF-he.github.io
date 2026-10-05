@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>PIKAQIANG'DOC</title>
+    <meta name="description" content="PIKAQIANG 的个人文档站（docsify v5，纯静态、零依赖）" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- ===================== 主题（docsify v5 官网写法）===================== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css"
+      media="(prefers-color-scheme: dark)"
+    />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/vue.min.css" /> -->
+
+    <!-- ===================== 插件样式 ===================== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-toc@1.1.0/dist/toc.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.css" />
+
+    <!-- ===================== 自定义字体 ===================== -->
+    <style>
+      @import url("https://fontsapi.zeoseven.com/521/main/result.css");
+      :root {
+        --font-family: "JetBrains Maple Mono", system-ui, sans-serif;
+      }
+      body {
+        font-family: "JetBrains Maple Mono", system-ui, sans-serif;
+        font-weight: normal;
+      }
+    </style>
+  </head>
+
+  <body class="loading sidebar-chevron-right sidebar-group-box">
+    <div id="app"></div>
+
+    <!-- ===================== Mermaid（官网同步渲染，v5 上限 9.3.0）===================== -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"></script>
+    <script>
+      let num = 0;
+      const mermaidDark =
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: mermaidDark ? 'dark' : 'default',
+      });
+    </script>
+
+    <!-- ===================== Docsify 配置 ===================== -->
+    <script>
+      window.$docsify = {
+        name: "PIKAQIANG'DOC",
+        basePath: '/',
+        auto2top: true,
+        coverpage: true,
+        loadSidebar: true,
+        loadNavbar: true,
+        mergeNavbar: true,
+        subMaxLevel: 2,
+        maxLevel: 4,
+        collapsibleSidebarGroups: true,
+        alias: { '/.*/_sidebar.md': '/_sidebar.md' },
+        skipLink: '跳到主要内容',
+        notFoundPage: true,
+
+        search: {
+          paths: 'auto',
+          placeholder: '搜索文档…',
+          noData: '未找到结果',
+          depth: 4,
+        },
+
+        copyCode: {
+          buttonText: '复制',
+          successText: '已复制',
+          errorText: '复制失败',
+        },
+        pagination: {
+          previousText: '上一页',
+          nextText: '下一页',
+          crossChapter: true,
+        },
+        toc: {
+          scope: '.markdown-section',
+          headings: 'h1, h2, h3, h4, h5, h6',
+          title: '目录',
+        },
+        tabs: {
+          persist: true,
+          sync: true,
+        },
+
+        markdown: {
+          renderer: {
+            code({ text, lang }) {
+              if (lang === 'mermaid') {
+                return `<div class="mermaid">${mermaid.render('mermaid-svg-' + num++, text)}</div>`;
+              }
+              return this.origin.code.apply(this, arguments);
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- ===================== 内核 ===================== -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
+
+    <!-- ===================== 语法高亮语言包（prismjs 1.29.0，jsDelivr combine）===================== -->
+    <script src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.29.0/components/prism-clike.min.js,npm/prismjs@1.29.0/components/prism-markup.min.js,npm/prismjs@1.29.0/components/prism-css.min.js,npm/prismjs@1.29.0/components/prism-javascript.min.js,npm/prismjs@1.29.0/components/prism-markup-templating.min.js,npm/prismjs@1.29.0/components/prism-json.min.js,npm/prismjs@1.29.0/components/prism-typescript.min.js,npm/prismjs@1.29.0/components/prism-jsx.min.js,npm/prismjs@1.29.0/components/prism-tsx.min.js,npm/prismjs@1.29.0/components/prism-json5.min.js,npm/prismjs@1.29.0/components/prism-python.min.js,npm/prismjs@1.29.0/components/prism-java.min.js,npm/prismjs@1.29.0/components/prism-c.min.js,npm/prismjs@1.29.0/components/prism-cpp.min.js,npm/prismjs@1.29.0/components/prism-csharp.min.js,npm/prismjs@1.29.0/components/prism-go.min.js,npm/prismjs@1.29.0/components/prism-rust.min.js,npm/prismjs@1.29.0/components/prism-bash.min.js,npm/prismjs@1.29.0/components/prism-yaml.min.js,npm/prismjs@1.29.0/components/prism-toml.min.js,npm/prismjs@1.29.0/components/prism-ini.min.js,npm/prismjs@1.29.0/components/prism-properties.min.js,npm/prismjs@1.29.0/components/prism-sql.min.js,npm/prismjs@1.29.0/components/prism-php.min.js,npm/prismjs@1.29.0/components/prism-ruby.min.js,npm/prismjs@1.29.0/components/prism-markdown.min.js,npm/prismjs@1.29.0/components/prism-diff.min.js,npm/prismjs@1.29.0/components/prism-docker.min.js,npm/prismjs@1.29.0/components/prism-nginx.min.js,npm/prismjs@1.29.0/components/prism-makefile.min.js,npm/prismjs@1.29.0/components/prism-powershell.min.js,npm/prismjs@1.29.0/components/prism-http.min.js,npm/prismjs@1.29.0/components/prism-kotlin.min.js,npm/prismjs@1.29.0/components/prism-swift.min.js,npm/prismjs@1.29.0/components/prism-dart.min.js,npm/prismjs@1.29.0/components/prism-lua.min.js,npm/prismjs@1.29.0/components/prism-scss.min.js,npm/prismjs@1.29.0/components/prism-less.min.js,npm/prismjs@1.29.0/components/prism-graphql.min.js,npm/prismjs@1.29.0/components/prism-git.min.js,npm/prismjs@1.29.0/components/prism-regex.min.js,npm/prismjs@1.29.0/components/prism-js-extras.min.js,npm/prismjs@1.29.0/components/prism-shell-session.min.js,npm/prismjs@1.29.0/components/prism-uri.min.js"></script>
+
+    <!-- ===================== 官方插件 ===================== -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify@5/dist/plugins/search.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify@5/dist/plugins/zoom-image.min.js"></script>
+
+    <!-- ===================== 第三方插件 ===================== -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@3.0.2/dist/docsify-copy-code.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2.10.1/dist/docsify-pagination.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-toc@1.1.0/dist/toc.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1.6.3/dist/docsify-tabs.min.js"></script>
+
+    <!-- ===================== KaTeX（顺序：katex -> docsify-katex-ex）===================== -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-katex-ex@3.0.1/index.min.js"></script>
+
+    <!-- ===================== 图表/公式点击放大（内联，自包含）===================== -->
+    <script>
+      (function () {
+        'use strict';
+
+        var SELECTOR = '.markdown-section .mermaid svg, .markdown-section .katex-display';
+        var MIN_SCALE = 0.2;
+        var MAX_SCALE = 12;
+
+        var overlay = null;
+        var stage = null;
+        var current = null;
+
+        var scale = 1, tx = 0, ty = 0;
+        var pointers = new Map();
+        var dragStartX = 0, dragStartY = 0, dragTx = 0, dragTy = 0;
+        var pinchStartDist = 0, pinchStartScale = 1, pinchStartTx = 0, pinchStartTy = 0;
+        var pinchStartMidX = 0, pinchStartMidY = 0;
+        var didMove = false;
+
+        function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+        function distance(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
+        function midpoint(a, b) { return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; }
+
+        function applyTransform() {
+          if (!current) return;
+          current.style.transform =
+            'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+        }
+
+        function stageCenter() {
+          var r = stage.getBoundingClientRect();
+          return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+        }
+
+        function zoomAt(cx, cy, newScale) {
+          var c = stageCenter();
+          var sx = cx - c.x, sy = cy - c.y;
+          var lx = (sx - tx) / scale, ly = (sy - ty) / scale;
+          scale = clamp(newScale, MIN_SCALE, MAX_SCALE);
+          tx = sx - lx * scale;
+          ty = sy - ly * scale;
+          applyTransform();
+        }
+
+        function fitInitial() {
+          if (!current) return;
+          var r = current.getBoundingClientRect();
+          if (!r.width || !r.height) return;
+          var s = Math.min(
+            (window.innerWidth * 0.9) / r.width,
+            (window.innerHeight * 0.9) / r.height
+          );
+          scale = clamp(s, MIN_SCALE, 6);
+          tx = 0;
+          ty = 0;
+          applyTransform();
+        }
+
+        function close() {
+          if (!overlay) return;
+          if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+          overlay = stage = current = null;
+          pointers.clear();
+          document.body.classList.remove('zoom-element-open');
+          document.removeEventListener('keydown', onKey);
+        }
+
+        function onKey(e) {
+          if (e.key === 'Escape' || e.keyCode === 27) close();
+        }
+
+        function resetView() {
+          scale = 1; tx = 0; ty = 0;
+          applyTransform();
+          fitInitial();
+        }
+
+        function open(source) {
+          close();
+
+          scale = 1; tx = 0; ty = 0; didMove = false;
+
+          overlay = document.createElement('div');
+          overlay.className = 'zoom-element-overlay';
+
+          stage = document.createElement('div');
+          stage.className = 'zoom-element-stage';
+
+          // 克隆元素并保留 id，带上 Mermaid 内嵌的 #id 作用域样式
+          var clone = source.cloneNode(true);
+          stage.appendChild(clone);
+          current = clone;
+
+          var section = document.querySelector('.markdown-section');
+          if (section) {
+            var cs = getComputedStyle(section);
+            stage.style.fontSize = cs.fontSize;
+            stage.style.color = cs.color;
+          }
+
+          overlay.appendChild(stage);
+          document.body.appendChild(overlay);
+          document.body.classList.add('zoom-element-open');
+
+          clone.style.transformOrigin = 'center center';
+          clone.style.transition = 'none';
+
+          if (window.requestAnimationFrame) {
+            requestAnimationFrame(fitInitial);
+          } else {
+            setTimeout(fitInitial, 16);
+          }
+
+          overlay.addEventListener('click', function (e) {
+            if ((e.target === overlay || e.target === stage) && !didMove) close();
+          });
+          overlay.addEventListener('dblclick', function (e) {
+            e.preventDefault();
+            resetView();
+          });
+          overlay.addEventListener('wheel', onWheel, { passive: false });
+          overlay.addEventListener('pointerdown', onPointerDown);
+          overlay.addEventListener('pointermove', onPointerMove);
+          overlay.addEventListener('pointerup', onPointerUp);
+          overlay.addEventListener('pointercancel', onPointerUp);
+          document.addEventListener('keydown', onKey);
+        }
+
+        function onWheel(e) {
+          e.preventDefault();
+          var factor = Math.exp(-e.deltaY * 0.0018);
+          zoomAt(e.clientX, e.clientY, scale * factor);
+        }
+
+        function onPointerDown(e) {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          if (overlay.setPointerCapture) {
+            try { overlay.setPointerCapture(e.pointerId); } catch (err) {}
+          }
+          pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+          didMove = false;
+
+          if (pointers.size === 1) {
+            dragStartX = e.clientX; dragStartY = e.clientY;
+            dragTx = tx; dragTy = ty;
+          } else if (pointers.size === 2) {
+            var pts = Array.from(pointers.values());
+            pinchStartDist = distance(pts[0], pts[1]) || 1;
+            pinchStartScale = scale;
+            pinchStartTx = tx; pinchStartTy = ty;
+            var mid = midpoint(pts[0], pts[1]);
+            pinchStartMidX = mid.x; pinchStartMidY = mid.y;
+          }
+          e.preventDefault();
+        }
+
+        function onPointerMove(e) {
+          if (!pointers.has(e.pointerId)) return;
+          pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+          var pts = Array.from(pointers.values());
+
+          if (pointers.size === 1) {
+            var dx = e.clientX - dragStartX;
+            var dy = e.clientY - dragStartY;
+            if (Math.abs(dx) > 3 || Math.abs(dy) > 3) didMove = true;
+            tx = dragTx + dx;
+            ty = dragTy + dy;
+            applyTransform();
+          } else if (pointers.size >= 2) {
+            didMove = true;
+            var d = distance(pts[0], pts[1]) || 1;
+            var mid = midpoint(pts[0], pts[1]);
+
+            tx = pinchStartTx + (mid.x - pinchStartMidX);
+            ty = pinchStartTy + (mid.y - pinchStartMidY);
+
+            var c = stageCenter();
+            var sx = mid.x - c.x, sy = mid.y - c.y;
+            var lx = (sx - tx) / scale, ly = (sy - ty) / scale;
+            scale = clamp(pinchStartScale * (d / pinchStartDist), MIN_SCALE, MAX_SCALE);
+            tx = sx - lx * scale;
+            ty = sy - ly * scale;
+            applyTransform();
+          }
+          e.preventDefault();
+        }
+
+        function onPointerUp(e) {
+          pointers.delete(e.pointerId);
+          if (pointers.size === 1) {
+            var p = Array.from(pointers.values())[0];
+            dragStartX = p.x; dragStartY = p.y;
+            dragTx = tx; dragTy = ty;
+          }
+        }
+
+        document.addEventListener('click', function (e) {
+          var el = e.target;
+          if (!el || !el.closest) return;
+          var target = el.closest(SELECTOR);
+          if (target) {
+            e.preventDefault();
+            e.stopPropagation();
+            open(target);
+          }
+        });
+
+        var css = [
+          '.markdown-section .mermaid svg,.markdown-section .katex-display{cursor:zoom-in}',
+          'body.zoom-element-open{overflow:hidden}',
+          '.zoom-element-overlay{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.75);',
+          'display:flex;align-items:center;justify-content:center;overflow:hidden;',
+          'cursor:zoom-out;touch-action:none;-webkit-user-select:none;user-select:none;',
+          '-webkit-tap-highlight-color:transparent}',
+          '.zoom-element-stage{display:flex;align-items:center;justify-content:center;',
+          'margin:0;padding:0;line-height:normal;will-change:transform}',
+          '.zoom-element-stage > svg{background:var(--color-bg,#fff);border-radius:8px;',
+          'padding:12px;max-width:none;max-height:none;transition:none}',
+          '.zoom-element-overlay .katex-display{background:var(--color-bg,#fff);',
+          'color:var(--color-text,#333);padding:1.2em 1.6em;border-radius:10px;',
+          'margin:0;transition:none}'
+        ].join('');
+        var style = document.createElement('style');
+        style.textContent = css;
+        document.head.appendChild(style);
+      })();
+    </script>
+  </body>
+</html>

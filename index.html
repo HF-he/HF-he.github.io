@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>PIKAQIANG'DOC</title>
+    <meta name="description" content="PIKAQIANG 的个人文档站（docsify v5，纯静态、零依赖）" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- ===================== 主题（docsify v5 官网写法）=====================
+         · core.min.css       核心主题，必加载
+         · core-dark.min.css  深色 add-on，用 media 跟随系统深浅色
+         · vue.min.css        v4 经典外观，需要时取消注释并注释掉 core-dark
+    ==================================================================== -->
+    <link rel="stylesheet" href="vendor/docsify/themes/core.min.css" />
+    <link
+      rel="stylesheet"
+      href="vendor/docsify/themes/addons/core-dark.min.css"
+      media="(prefers-color-scheme: dark)"
+    />
+    <!-- <link rel="stylesheet" href="vendor/docsify/themes/addons/vue.min.css" /> -->
+
+    <!-- ===================== 插件样式 ===================== -->
+    <link rel="stylesheet" href="vendor/plugins/toc.css" />       <!-- 目录 TOC -->
+    <link rel="stylesheet" href="vendor/katex/katex.min.css" />   <!-- 数学公式 KaTeX -->
+
+    <!-- ===================== 自定义字体 ===================== -->
+    <style>
+      @import url("https://fontsapi.zeoseven.com/521/main/result.css");
+      :root {
+        --font-family: "JetBrains Maple Mono", system-ui, sans-serif;
+      }
+      body {
+        font-family: "JetBrains Maple Mono", system-ui, sans-serif;
+        font-weight: normal;
+      }
+    </style>
+  </head>
+
+  <!-- body 类（官网推荐）：loading 加载动画；chevron 箭头折叠；group-box 分组框 -->
+  <body class="loading sidebar-chevron-right sidebar-group-box">
+    <div id="app"></div>
+
+    <!-- ===================== Mermaid（官网同步渲染，v5 上限 9.3.0）===================== -->
+    <script src="vendor/plugins/mermaid.min.js"></script>
+    <script>
+      let num = 0;
+      // 跟随系统深浅色
+      const mermaidDark =
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: mermaidDark ? 'dark' : 'default',
+      });
+    </script>
+
+    <!-- ===================== Docsify 配置 ===================== -->
+    <script>
+      window.$docsify = {
+        name: "PIKAQIANG'DOC",
+        basePath: '/',
+        auto2top: true,
+        coverpage: true,
+        loadSidebar: true,
+        loadNavbar: true,
+        mergeNavbar: true,
+        subMaxLevel: 2,
+        maxLevel: 4,
+        collapsibleSidebarGroups: true,
+        alias: { '/.*/_sidebar.md': '/_sidebar.md' },
+        skipLink: '跳到主要内容',
+        notFoundPage: true,
+
+        // 全文搜索（官方插件）
+        search: {
+          paths: 'auto',
+          placeholder: '搜索文档…',
+          noData: '未找到结果',
+          depth: 4,
+        },
+
+        // 第三方插件
+        copyCode: {
+          buttonText: '复制',
+          successText: '已复制',
+          errorText: '复制失败',
+        },
+        pagination: {
+          previousText: '上一页',
+          nextText: '下一页',
+          crossChapter: true,
+        },
+        toc: {
+          scope: '.markdown-section',
+          headings: 'h1, h2, h3, h4, h5, h6',
+          title: '目录',
+        },
+        tabs: {
+          persist: true,
+          sync: true,
+        },
+
+        // Mermaid 渲染（官网 markdown.renderer.code 片段）
+        markdown: {
+          renderer: {
+            code({ text, lang }) {
+              if (lang === 'mermaid') {
+                return `<div class="mermaid">${mermaid.render('mermaid-svg-' + num++, text)}</div>`;
+              }
+              return this.origin.code.apply(this, arguments);
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- ===================== 内核 ===================== -->
+    <script src="vendor/docsify/docsify.min.js"></script>
+
+    <!-- ===================== 语法高亮语言包（prismjs 1.29.0）===================== -->
+    <script src="vendor/prism/prism-langs.min.js"></script>
+
+    <!-- ===================== 官方插件 ===================== -->
+    <script src="vendor/docsify/plugins/search.min.js"></script>
+    <script src="vendor/docsify/plugins/zoom-image.min.js"></script>
+
+    <!-- ===================== 第三方插件（注释即关闭）===================== -->
+    <script src="vendor/plugins/docsify-copy-code.min.js"></script>
+    <script src="vendor/plugins/docsify-pagination.min.js"></script>
+    <script src="vendor/plugins/docsify-toc.js"></script>
+    <script src="vendor/plugins/docsify-tabs.min.js"></script>
+
+    <!-- ===================== KaTeX（顺序：katex -> docsify-katex-ex）===================== -->
+    <script src="vendor/katex/katex.min.js"></script>
+    <script src="vendor/plugins/docsify-katex-ex.min.js"></script>
+
+    <!-- ===================== 图表/公式点击放大（自包含）===================== -->
+    <script src="vendor/plugins/zoom-element.js"></script>
+  </body>
+</html>
